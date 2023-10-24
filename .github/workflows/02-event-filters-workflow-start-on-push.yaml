@@ -1,0 +1,35 @@
+name: Deploy Project
+on:
+  pull_request: # Using activity type for controlling when to activate a workflow. In this example we are using the pull_request activity type. https://docs.github.com/en/actions/using-workflows/events-that-trigger-workflows#pull_request
+    types:
+      - opened
+    branches:
+      - main #main
+      - 'dev-*' # dev-new dev-this-is-a-new-feature
+      - 'feat/**' # feat/new feat/new/button
+  workflow_dispatch:
+  push:
+      branches:
+        - main
+        - 'dev-*' # dev-new dev-this-is-a-new-feature
+        - 'feat/**' # feat/new feat/new/button
+      paths-ignore:
+        - '.github/workflows/*' # only run workflow when code is pushed to the main branch and not when the workflow is updated
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+        - name: Output event data
+          run: echo "${{ toJson(github.event) }}"
+        - name: Get code
+          uses: actions/checkout@v3
+        - name: Install dependencies
+          run: npm ci
+        - name: Test code
+          run: npm run test
+        - name: Build code
+          run: npm run build
+        - name: Deploy project
+          run: echo "Deploying project..."
+
+# You need to create a pull request to trigger the workflow.

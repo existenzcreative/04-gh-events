@@ -1,6 +1,6 @@
 name: Deploy Project
 on:
-  pull_request:
+  pull_request: # Using activity type for controlling when to activate a workflow. In this example we are using the pull_request activity type. https://docs.github.com/en/actions/using-workflows/events-that-trigger-workflows#pull_request
     types:
       - opened
 jobs:
@@ -20,3 +20,4 @@ jobs:
         - name: Deploy project
           run: echo "Deploying project..."
 
+# You need to create a pull request to trigger the workflow.
