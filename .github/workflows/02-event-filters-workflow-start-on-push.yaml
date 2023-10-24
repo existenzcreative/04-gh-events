@@ -8,7 +8,7 @@ on:
       - 'dev-*' # dev-new dev-this-is-a-new-feature
       - 'feat/**' # feat/new feat/new/button
   workflow_dispatch:
-    push:
+  push:
       branches:
         - main
         - 'dev-*' # dev-new dev-this-is-a-new-feature
